@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Catering — Premium Catering & Events</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f0a04;--bark:#1e1108;--mahogany:#3b1f0e;--bronze:#8b5e3c;--gold:#d4a843;--gold-pale:#f0d894;--sand:#f5ead8;--cream:#fdf8f0;--white:#fffdf9;--leaf:#4a7c59;--red-tag:#c0392b;--muted:#7a6a58;--r:6px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);cursor:none;overflow-x:hidden}
+.cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;width:12px;height:12px;border-radius:50%;background:var(--gold);transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:multiply}
+.cursor-ring{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gold);transform:translate(-50%,-50%);opacity:.5}
+
+/* FLOAT CALL */
+.float-call{position:fixed;bottom:2rem;right:2rem;z-index:500;display:flex;align-items:center;gap:.7rem;background:linear-gradient(135deg,#27ae60,#1e8449);color:#fff;text-decoration:none;padding:.85rem 1.5rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.04em;box-shadow:0 8px 32px rgba(39,174,96,.4);transition:transform .25s,box-shadow .25s;animation:pulseCall 2.5s ease infinite;cursor:none}
+.float-call:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 40px rgba(39,174,96,.5)}
+.float-call svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+@keyframes pulseCall{0%,100%{box-shadow:0 8px 32px rgba(39,174,96,.4)}50%{box-shadow:0 8px 48px rgba(39,174,96,.7)}}
+
+/* TOPBAR */
+.topbar{background:var(--bark);color:rgba(255,255,255,.5);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.topbar a{color:var(--gold);text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(15,10,4,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,168,67,.12);padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--gold);letter-spacing:.04em;text-decoration:none}
+.nav-logo span{font-style:italic;font-weight:400}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;transition:color .25s;cursor:none}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold)!important;color:var(--ink)!important;padding:.5rem 1.3rem;border-radius:3px;font-weight:500!important;transition:background .25s,transform .2s!important}
+.nav-cta:hover{background:var(--gold-pale)!important;transform:translateY(-1px)!important}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;place-items:center;background:var(--bark);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 15% 50%,#3b1f0e88,transparent),radial-gradient(ellipse 50% 70% at 90% 20%,#1a0d0533,transparent)}
+.hero-inner{position:relative;z-index:2;max-width:1100px;width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center;padding:5rem 2.5rem 4rem}
+.hero-eyebrow{font-size:.68rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
+.hero-eyebrow::before{content:'';display:block;width:30px;height:1px;background:var(--gold);flex-shrink:0}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,5.2rem);font-weight:900;line-height:.95;color:var(--white);margin-bottom:1.5rem}
+.hero-title em{font-style:italic;color:var(--gold);display:block}
+.hero-desc{font-size:.95rem;line-height:1.85;color:rgba(255,255,255,.48);font-weight:300;margin-bottom:2.5rem;max-width:420px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--ink);text-decoration:none;padding:.85rem 2rem;border-radius:4px;font-weight:500;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;transition:background .25s,transform .2s;cursor:none}
+.btn-primary:hover{background:var(--gold-pale);transform:translateY(-2px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:.6rem;border:1.5px solid rgba(212,168,67,.4);color:var(--gold);text-decoration:none;padding:.85rem 2rem;border-radius:4px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;transition:all .25s;cursor:none}
+.btn-secondary:hover{border-color:var(--gold);background:rgba(212,168,67,.08)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(212,168,67,.12);flex-wrap:wrap}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1}
+.stat-lbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.3rem}
+.hero-visual{position:relative}
+.card-stack{position:relative;width:100%;aspect-ratio:4/5}
+.hc{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.hc-1{width:76%;bottom:0;left:0;height:68%;background:linear-gradient(145deg,#2c1608,#5a3018);z-index:2}
+.hc-2{width:62%;top:0;right:0;height:50%;background:linear-gradient(145deg,#1a3828,#2d6040);z-index:3}
+.hc-3{width:52%;top:28%;right:8%;height:46%;background:linear-gradient(145deg,#3b2e18,#7a5a30);z-index:1}
+.hc-inner{padding:1.5rem;height:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.hc-emoji{font-size:2.2rem;margin-bottom:.6rem}
+.hc-name{font-family:'Playfair Display',serif;font-size:1rem;color:#fff}
+.hc-sub{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.2rem}
+
+/* MARQUEE */
+.marquee{background:var(--gold);overflow:hidden;padding:.75rem 0;white-space:nowrap}
+.marquee-track{display:inline-flex;gap:2.5rem;animation:marquee 28s linear infinite}
+.mitem{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:500;flex-shrink:0}
+.mdot{color:rgba(15,10,4,.3)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION COMMON */
+.s-lbl{font-size:.62rem;letter-spacing:.48em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:.6rem}
+.s-ttl{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,3rem);font-weight:700;text-align:center;line-height:1.15;margin-bottom:.8rem}
+.s-ttl em{font-style:italic;color:var(--bronze)}
+.s-rule{width:48px;height:3px;background:var(--gold);margin:0 auto 3.5rem;border-radius:2px}
+section{padding:6rem 2rem}
+
+/* FEATURES */
+.features{background:var(--white)}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.4rem;max-width:1100px;margin:0 auto}
+.feat{padding:2rem 1.5rem;border:1px solid rgba(212,168,67,.15);border-radius:var(--r);transition:border-color .25s,box-shadow .25s;position:relative;overflow:hidden}
+.feat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.feat:hover{border-color:var(--gold);box-shadow:0 8px 40px rgba(212,168,67,.1)}
+.feat:hover::after{transform:scaleX(1)}
+.feat-icon{font-size:1.9rem;margin-bottom:.9rem}
+.feat-ttl{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:.45rem;color:var(--mahogany)}
+.feat-desc{font-size:.8rem;line-height:1.7;color:var(--muted)}
+
+/* MENU */
+.menu-sec{background:var(--cream)}
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem;margin-bottom:3rem}
+.fbtn{padding:.5rem 1.3rem;border-radius:50px;border:1.5px solid rgba(59,31,14,.15);background:transparent;font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);cursor:none;transition:all .25s;display:flex;align-items:center;gap:.4rem}
+.fbtn .dot{width:7px;height:7px;border-radius:50%;background:var(--muted);transition:background .25s;flex-shrink:0}
+.fbtn[data-f="veg"] .dot{background:var(--leaf)}
+.fbtn.active,.fbtn:hover{background:var(--ink);color:var(--gold);border-color:var(--ink)}
+.fbtn.active .dot,.fbtn:hover .dot{background:var(--gold)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.8rem;max-width:1200px;margin:0 auto}
+.mc{background:var(--white);border-radius:10px;overflow:hidden;box-shadow:0 2px 16px rgba(15,10,4,.06);transition:transform .3s,box-shadow .3s;display:none;flex-direction:column;animation:cIn .4s ease both}
+.mc.vis{display:flex}
+.mc:hover{transform:translateY(-6px);box-shadow:0 16px 50px rgba(15,10,4,.12)}
+@keyframes cIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.cthumb{height:190px;display:flex;align-items:center;justify-content:center;font-size:3.8rem;position:relative;overflow:hidden;flex-shrink:0}
+.cthumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.25),transparent 55%)}
+.vbadge,.sbadge,.nbadge{position:absolute;z-index:2;padding:.22rem .55rem;border-radius:3px;font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.vbadge{top:.7rem;left:.7rem;background:var(--leaf);color:#fff}
+.sbadge{top:.7rem;right:.7rem;background:var(--red-tag);color:#fff}
+.nbadge{top:.7rem;right:.7rem;background:var(--gold);color:var(--ink);font-weight:700}
+.cbody{padding:1.3rem;flex:1;display:flex;flex-direction:column}
+.ccat{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.cname{font-family:'Playfair Display',serif;font-size:1.28rem;color:var(--mahogany);margin-bottom:.4rem;line-height:1.2}
+.cdesc{font-size:.78rem;line-height:1.65;color:var(--muted);flex:1}
+.cfoot{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(59,31,14,.08)}
+.cprice{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--bronze)}
+.cserves{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* PACKAGES */
+.pkgs{background:var(--bark)}
+.pkgs .s-ttl{color:var(--white)}
+.pkgs .s-ttl em{color:var(--gold)}
+.pkgs .s-lbl{color:var(--gold)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.pkg{border:1px solid rgba(212,168,67,.15);border-radius:10px;padding:2.5rem 2rem;position:relative;transition:border-color .3s,box-shadow .3s}
+.pkg:hover{border-color:var(--gold);box-shadow:0 12px 50px rgba(212,168,67,.1)}
+.pkg.feat{border-color:var(--gold);background:rgba(212,168,67,.05)}
+.ptag{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;padding:.28rem .8rem;border-radius:0 0 6px 6px;font-weight:600}
+.pname{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--white);margin-bottom:.4rem}
+.pprice{font-size:.78rem;color:var(--gold);letter-spacing:.1em;margin-bottom:1.5rem}
+.pprice span{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700}
+.plist{list-style:none}
+.plist li{font-size:.8rem;color:rgba(255,255,255,.52);padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:.6rem}
+.plist li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
+.pbtn{display:block;margin-top:1.8rem;padding:.8rem;text-align:center;border:1.5px solid var(--gold);color:var(--gold);border-radius:5px;text-decoration:none;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;transition:all .25s;cursor:none}
+.pbtn:hover,.pkg.feat .pbtn{background:var(--gold);color:var(--ink)}
+
+/* TESTIMONIALS */
+.testis{background:var(--sand)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.tcard{background:var(--white);border-radius:10px;padding:2rem;box-shadow:0 2px 20px rgba(15,10,4,.05)}
+.stars{color:var(--gold);font-size:.95rem;margin-bottom:1rem;letter-spacing:.1em}
+.ttext{font-family:'Playfair Display',serif;font-size:.98rem;font-style:italic;line-height:1.75;color:var(--mahogany);margin-bottom:1.1rem}
+.tauthor{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* QR SECTION */
+.qrsec{background:var(--mahogany);text-align:center}
+.qrsec .s-ttl{color:var(--white)}
+.qrsec .s-ttl em{color:var(--gold)}
+.qrsec .s-lbl{color:var(--gold-pale)}
+.qrdesc{font-size:.88rem;color:rgba(255,255,255,.42);max-width:400px;margin:0 auto 3rem;line-height:1.8}
+.qrwrap{display:inline-flex;flex-direction:column;align-items:center;gap:1.1rem}
+.qrplate{background:var(--white);padding:1.8rem;border-radius:12px;box-shadow:0 0 80px rgba(212,168,67,.25);position:relative}
+.qrplate::before{content:'';position:absolute;inset:-2px;border-radius:14px;z-index:-1;background:linear-gradient(135deg,var(--gold),#8b6020 40%,var(--gold))}
+.qrcap{font-size:.62rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(212,168,67,.5)}
+.qrimg{width:200px;height:200px;display:block}
+
+/* MODAL */
+.moverlay{position:fixed;inset:0;z-index:800;background:rgba(10,5,0,.72);backdrop-filter:blur(8px);display:none;place-items:center}
+.moverlay.open{display:grid}
+.mdlg{background:var(--white);border-radius:14px;padding:2.5rem;max-width:420px;width:90%;position:relative;animation:mIn .3s ease;box-shadow:0 30px 100px rgba(0,0,0,.3)}
+@keyframes mIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.mclose{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border:none;background:var(--sand);border-radius:50%;cursor:none;font-size:.95rem;color:var(--muted);display:grid;place-items:center;transition:background .2s}
+.mclose:hover{background:var(--gold-pale)}
+.micon{font-size:2.5rem;margin-bottom:1rem}
+.mttl{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--mahogany);margin-bottom:.4rem}
+.msub{font-size:.83rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6}
+.mnum{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;background:var(--cream);border-radius:8px;margin-bottom:.9rem;text-decoration:none;transition:background .2s;cursor:none}
+.mnum:hover{background:var(--sand)}
+.mnum .ni{font-size:1.4rem}
+.nlbl{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+.nval{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--mahogany);font-weight:700}
+.callbtn{display:flex;align-items:center;justify-content:center;gap:.7rem;width:100%;padding:1rem;background:linear-gradient(135deg,#27ae60,#1e8449);color:#fff;border:none;border-radius:8px;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:none;transition:opacity .2s;margin-top:.9rem}
+.callbtn:hover{opacity:.9}
+.callbtn svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* CONTACT */
+.consec{background:var(--white)}
+.cogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1.2rem;max-width:900px;margin:0 auto}
+.cocard{text-align:center;padding:1.8rem 1rem;border:1px solid rgba(212,168,67,.2);border-radius:8px;transition:border-color .25s,box-shadow .25s}
+.cocard:hover{border-color:var(--gold);box-shadow:0 6px 30px rgba(212,168,67,.1)}
+.coicon{font-size:1.7rem;margin-bottom:.7rem}
+.cotype{font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.coval{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--mahogany)}
+.coval a{color:inherit;text-decoration:none;cursor:none}
+
+/* FOOTER */
+footer{background:var(--ink);padding:3rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem;border-top:1px solid rgba(212,168,67,.08)}
+.flogo{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);font-weight:700}
+.flinks{display:flex;gap:1.8rem;flex-wrap:wrap;justify-content:center}
+.flinks a{text-decoration:none;color:rgba(255,255,255,.28);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;transition:color .2s;cursor:none}
+.flinks a:hover{color:var(--gold)}
+.fcopy{font-size:.66rem;color:rgba(255,255,255,.18);letter-spacing:.1em;text-align:center}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:880px){.hero-inner{grid-template-columns:1fr;text-align:center}.hero-visual{display:none}.hero-eyebrow,.hero-actions{justify-content:center}.hero-stats{justify-content:center}nav{padding:.9rem 1.5rem}.nav-links{display:none}}
+@media(max-width:560px){section{padding:4rem 1rem}.float-call span{display:none}.float-call{padding:.85rem}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- FLOATING CALL BUTTON -->
+<a href="#" class="float-call" onclick="openModal(event)">
+  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.1 19.79 19.79 0 01.12 .5 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+  <span>Call Us Now</span>
+</a>
+
+<!-- CALL MODAL -->
+<div class="moverlay" id="callModal">
+  <div class="mdlg">
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div class="micon">📞</div>
+    <div class="mttl">Book Your Event</div>
+    <div class="msub">Reach us directly — Mon to Sat, 8am–7pm. We'd love to help plan your perfect celebration!</div>
+    <a class="mnum" href="tel:+917698490040">
+      <span class="ni">📱</span>
+      <div><div class="nlbl">Mobile</div><div class="nval">+917698490040</div></div>
+    </a>
+    <a class="mnum" href="tel:+917698490040">
+      <span class="ni">☎️</span>
+      <div><div class="nlbl">Mob:</div><div class="nval">9033570140</div></div>
+    </a>
+    <a class="callbtn" href="tel:+917698490040">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.1 19.79 19.79 0 01.12 .5 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+      Tap to Call Now
+    </a>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 Vapi, Gujarat</span>
+  <span>Mon–Sat · 8am–7pm · <a href="tel:+917698490040 ">+91 76984 90040</a></span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">PR <span>Catering</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#qr">QR Menu</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">📞 Call Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow reveal">Est. 2025 · Premium Catering & Events</p>
+      <h1 class="hero-title reveal">Crafted<em>Flavors,</em>Unforgettable Moments</h1>
+      <p class="hero-desc reveal">PR Catering transforms every occasion into a culinary masterpiece. From intimate dinners to grand receptions — extraordinary food, flawless service.</p>
+      <div class="hero-actions reveal">
+        <a href="#menu" class="btn-primary">🍽️ View Full Menu</a>
+        <a href="#" class="btn-secondary" onclick="openModal(event)">📞 Get a Quote</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div><div class="stat-num">500+</div><div class="stat-lbl">Events Catered</div></div>
+        <div><div class="stat-num">10K+</div><div class="stat-lbl">Happy Guests</div></div>
+        <div><div class="stat-num">40+</div><div class="stat-lbl">Menu Items</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="card-stack">
+        <div class="hc hc-3"><div class="hc-inner"><div class="hc-emoji">🥗</div><div class="hc-name">Fresh Salads</div><div class="hc-sub">Healthy · Veg</div></div></div>
+        <div class="hc hc-1"><div class="hc-inner"><div class="hc-emoji">🍗</div><div class="hc-name">Lechon Manok</div><div class="hc-sub">Roasted · Specialty</div></div></div>
+        <div class="hc hc-2"><div class="hc-inner"><div class="hc-emoji">🌿</div><div class="hc-name">Veg Delights</div><div class="hc-sub">Garden Fresh · Veg</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="mitem">Weddings <span class="mdot">◆</span></span><span class="mitem">Corporate Events <span class="mdot">◆</span></span><span class="mitem">Birthday Parties <span class="mdot">◆</span></span><span class="mitem">Debut Celebrations <span class="mdot">◆</span></span><span class="mitem">Christenings <span class="mdot">◆</span></span><span class="mitem">Graduations <span class="mdot">◆</span></span><span class="mitem">Holiday Parties <span class="mdot">◆</span></span><span class="mitem">Reunions <span class="mdot">◆</span></span><span class="mitem">Weddings <span class="mdot">◆</span></span><span class="mitem">Corporate Events <span class="mdot">◆</span></span><span class="mitem">Birthday Parties <span class="mdot">◆</span></span><span class="mitem">Debut Celebrations <span class="mdot">◆</span></span><span class="mitem">Christenings <span class="mdot">◆</span></span><span class="mitem">Graduations <span class="mdot">◆</span></span><span class="mitem">Holiday Parties <span class="mdot">◆</span></span><span class="mitem">Reunions <span class="mdot">◆</span></span>
+  </div>
+</div>
+
+<!-- FEATURES / ABOUT -->
+<section class="features" id="about">
+  <div class="s-lbl reveal">Why Choose Us</div>
+  <h2 class="s-ttl reveal">Catering <em>Done Right</em></h2>
+  <div class="s-rule reveal"></div>
+  <div class="feat-grid">
+    <div class="feat reveal"><div class="feat-icon">👨‍🍳</div><div class="feat-ttl">Expert Chefs</div><div class="feat-desc">Seasoned culinary professionals delivering restaurant-quality cooking at your event venue.</div></div>
+    <div class="feat reveal"><div class="feat-icon">🌿</div><div class="feat-ttl">Farm-Fresh Ingredients</div><div class="feat-desc">Daily-sourced local produce and premium meats to ensure vibrant, flavorful dishes.</div></div>
+    <div class="feat reveal"><div class="feat-icon">🥗</div><div class="feat-ttl">Veg-Friendly Menus</div><div class="feat-desc">Extensive vegetarian and vegan options, thoughtfully prepared to be equally satisfying.</div></div>
+    <div class="feat reveal"><div class="feat-icon">📋</div><div class="feat-ttl">Custom Menus</div><div class="feat-desc">We craft a personalized menu that fits your theme, dietary needs, and budget perfectly.</div></div>
+    <div class="feat reveal"><div class="feat-icon">🚚</div><div class="feat-ttl">Full Setup & Service</div><div class="feat-desc">Delivery, setup, service, and cleanup — our team handles everything, zero stress for you.</div></div>
+    <div class="feat reveal"><div class="feat-icon">💬</div><div class="feat-ttl">Dedicated Coordinator</div><div class="feat-desc">A personal event coordinator assigned to every booking for seamless, flawless execution.</div></div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-sec" id="menu">
+  <div class="s-lbl reveal">What We Serve</div>
+  <h2 class="s-ttl reveal">Our <em>Catering Menu</em></h2>
+  <div class="s-rule reveal"></div>
+  <div class="filters reveal">
+    <button class="fbtn active" data-f="all" onclick="doFilter('all',this)">
+  <span class="dot"></span>All Items
+</button>
+
+<button class="fbtn" data-f="starter" onclick="doFilter('starter',this)">
+  <span class="dot"></span>Starters
+</button>
+
+<button class="fbtn" data-f="south" onclick="doFilter('south',this)">
+  <span class="dot"></span>South Indian
+</button>
+
+<button class="fbtn" data-f="bread" onclick="doFilter('bread',this)">
+  <span class="dot"></span>Breads & Continental
+</button>
+
+<button class="fbtn" data-f="main" onclick="doFilter('main',this)">
+  <span class="dot"></span>Main Course
+</button>
+
+<button class="fbtn" data-f="rice" onclick="doFilter('rice',this)">
+  <span class="dot"></span>Rice & Sides
+</button>
+
+<button class="fbtn" data-f="chat" onclick="doFilter('chat',this)">
+  <span class="dot"></span>Street Chat
+</button>
+
+<button class="fbtn" data-f="chinese" onclick="doFilter('chinese',this)">
+  <span class="dot"></span>Chinese Cuisine
+</button>
+
+<button class="fbtn" data-f="soup" onclick="doFilter('soup',this)">
+  <span class="dot"></span>Soups
+</button>
+
+<button class="fbtn" data-f="dessert" onclick="doFilter('dessert',this)">
+  <span class="dot"></span>Sweets
+</button>
+
+<button class="fbtn" data-f="drink" onclick="doFilter('drink',this)">
+  <span class="dot"></span>Drinks
+</button>
+  </div>
+  <div class="mgrid" id="mg">
+
+    <!-- WELCOME DRINKS -->
+<!-- ================= WELCOME DRINKS ================= -->
+
+<div class="mc vis" data-c="drink veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ff7676,#c0392b)">🍉<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Welcome Drinks</div>
+    <div class="cname">Watermelon Juice</div>
+    <div class="cdesc">Fresh watermelon blended with mint and crushed ice. Naturally sweet and cooling.</div>
+    <div class="cfoot"><span class="cprice">₹80</span><span class="cserves">per glass</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="drink veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffb347,#ff7043)">🍹<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Welcome Drinks</div>
+    <div class="cname">Fruit Punch</div>
+    <div class="cdesc">Refreshing blend of tropical fruit juices with citrus splash and chilled ice cubes.</div>
+    <div class="cfoot"><span class="cprice">₹120</span><span class="cserves">per glass</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="drink veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffd54f,#ff9800)">🍍<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Welcome Drinks</div>
+    <div class="cname">Goa Garden Pineapple</div>
+    <div class="cdesc">Fresh pineapple cooler infused with tropical flavors and served ice cold.</div>
+    <div class="cfoot"><span class="cprice">₹110</span><span class="cserves">per glass</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="drink veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f7dc6f,#d68910)">🍍<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Welcome Drinks</div>
+    <div class="cname">Peru Pineapple</div>
+    <div class="cdesc">Exotic pineapple beverage inspired by tropical Peruvian fruit flavors.</div>
+    <div class="cfoot"><span class="cprice">₹130</span><span class="cserves">per glass</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="drink veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#9be15d,#00c853)">🍸<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Welcome Drinks</div>
+    <div class="cname">Classic Mojito</div>
+    <div class="cdesc">Refreshing lime, mint leaves, soda, and crushed ice mocktail.</div>
+    <div class="cfoot"><span class="cprice">₹140</span><span class="cserves">per glass</span></div>
+  </div>
+</div>
+
+<!-- ================= SOUTH INDIAN ================= -->
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f4c27a,#b76e2b)">🥞<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">South Indian</div>
+    <div class="cname">Masala Dosa</div>
+    <div class="cdesc">Golden crispy dosa stuffed with spiced potato masala. Served with chutney and sambhar.</div>
+    <div class="cfoot"><span class="cprice">₹140</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f7d794,#d35400)">🥞<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">South Indian</div>
+    <div class="cname">Sada Dosa</div>
+    <div class="cdesc">Classic plain dosa with crispy edges and soft center. South Indian favorite.</div>
+    <div class="cfoot"><span class="cprice">₹100</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f6d365,#d4a017)">🌯<span class="vbadge">Veg</span><span class="nbadge">New</span></div>
+  <div class="cbody">
+    <div class="ccat">South Indian</div>
+    <div class="cname">Spring Roll Dosa</div>
+    <div class="cdesc">Fusion dosa stuffed with noodles and vegetables tossed in oriental spices.</div>
+    <div class="cfoot"><span class="cprice">₹180</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffd89b,#c7903c)">🧀<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">South Indian</div>
+    <div class="cname">Paneer Dosa</div>
+    <div class="cdesc">Crispy dosa filled with spicy paneer stuffing and aromatic herbs.</div>
+    <div class="cfoot"><span class="cprice">₹190</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f8c471,#ca6f1e)">🥘<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">South Indian</div>
+    <div class="cname">Masala Uttappa</div>
+    <div class="cdesc">Thick fluffy uttappa topped with onions, tomatoes, chilies, and masala seasoning.</div>
+    <div class="cfoot"><span class="cprice">₹150</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#edbb99,#ba4a00)">🌮<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">South Indian</div>
+    <div class="cname">Moong Dal Chilla</div>
+    <div class="cdesc">Healthy savory lentil pancakes served with green chutney and butter.</div>
+    <div class="cfoot"><span class="cprice">₹120</span><span class="cserves">2 pcs</span></div>
+  </div>
+</div>
+
+<!-- ================= STARTERS ================= -->
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#7bc96f,#2f7d32)">🥬<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Starter</div>
+    <div class="cname">Harabhara Kabab</div>
+    <div class="cdesc">Spinach and green pea patties seasoned with aromatic Indian spices.</div>
+    <div class="cfoot"><span class="cprice">₹220</span><span class="cserves">6 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffcc80,#ef6c00)">🧀<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Starter</div>
+    <div class="cname">Cheese Balls</div>
+    <div class="cdesc">Golden crispy cheese-filled potato balls served with spicy dip.</div>
+    <div class="cfoot"><span class="cprice">₹240</span><span class="cserves">8 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffb74d,#e65100)">🥟<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Starter</div>
+    <div class="cname">Paneer Pakoda</div>
+    <div class="cdesc">Soft paneer cubes coated in gram flour batter and deep fried till crispy.</div>
+    <div class="cfoot"><span class="cprice">₹260</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffcc99,#cc6600)">🥬<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Starter</div>
+    <div class="cname">Veg Pakoda</div>
+    <div class="cdesc">Assorted vegetables dipped in spiced gram flour batter and fried crisp.</div>
+    <div class="cfoot"><span class="cprice">₹180</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<!-- ================= BREADS ================= -->
+
+<div class="mc vis" data-c="bread veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#d7a86e,#8d5524)">🫓<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Breads</div>
+    <div class="cname">Aloo Paratha</div>
+    <div class="cdesc">Stuffed whole wheat flatbread filled with spiced potato mixture and butter.</div>
+    <div class="cfoot"><span class="cprice">₹110</span><span class="cserves">2 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="bread veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#e6b980,#8c6239)">🫓<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Breads</div>
+    <div class="cname">Paneer Paratha</div>
+    <div class="cdesc">Paratha stuffed with spicy paneer filling and roasted in butter.</div>
+    <div class="cfoot"><span class="cprice">₹130</span><span class="cserves">2 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="bread veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f4d03f,#c39b00)">🍞<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Breads</div>
+    <div class="cname">Cheese Naan</div>
+    <div class="cdesc">Soft naan bread filled with molten cheese and baked in clay oven.</div>
+    <div class="cfoot"><span class="cprice">₹140</span><span class="cserves">per naan</span></div>
+  </div>
+</div>
+
+<!-- ================= MAIN COURSE ================= -->
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ff8a65,#bf360c)">🍛<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Main Course</div>
+    <div class="cname">Paneer Butter Masala</div>
+    <div class="cdesc">Paneer cubes simmered in buttery tomato gravy with cream and spices.</div>
+    <div class="cfoot"><span class="cprice">₹320</span><span class="cserves">serves 3</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ff7043,#c62828)">🥘<span class="vbadge">Veg</span><span class="sbadge">Spicy</span></div>
+  <div class="cbody">
+    <div class="ccat">Main Course</div>
+    <div class="cname">Veg Kolhapuri</div>
+    <div class="cdesc">Mixed vegetables cooked in spicy Kolhapuri gravy with coconut and masala.</div>
+    <div class="cfoot"><span class="cprice">₹280</span><span class="cserves">serves 3</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#81c784,#2e7d32)">🥬<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Main Course</div>
+    <div class="cname">Palak Paneer</div>
+    <div class="cdesc">Fresh spinach puree cooked with paneer cubes and aromatic spices.</div>
+    <div class="cfoot"><span class="cprice">₹300</span><span class="cserves">serves 3</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f7dc6f,#ca6f1e)">🍚<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Rice</div>
+    <div class="cname">Veg Biryani</div>
+    <div class="cdesc">Fragrant basmati rice layered with vegetables, herbs, and biryani spices.</div>
+    <div class="cfoot"><span class="cprice">₹260</span><span class="cserves">serves 2</span></div>
+  </div>
+</div>
+
+<!-- ================= STREET CHAT ================= -->
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffe082,#ff8f00)">🥙<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Street Chat</div>
+    <div class="cname">Pani Puri</div>
+    <div class="cdesc">Crispy puris filled with spicy mint water and tangy potato stuffing.</div>
+    <div class="cfoot"><span class="cprice">₹80</span><span class="cserves">6 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffd180,#ff6f00)">🥗<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Street Chat</div>
+    <div class="cname">Papdi Chat</div>
+    <div class="cdesc">Crunchy papdi topped with yogurt, chutneys, potatoes, and sev.</div>
+    <div class="cfoot"><span class="cprice">₹120</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f5cba7,#dc7633)">🥔<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Street Chat</div>
+    <div class="cname">Ragda Petis</div>
+    <div class="cdesc">Crispy potato patties topped with ragda curry, chutneys, and sev.</div>
+    <div class="cfoot"><span class="cprice">₹140</span><span class="cserves">per plate</span></div>
+  </div>
+</div>
+
+<!-- ================= CHINESE ================= -->
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ff7043,#8e0000)">🍜<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Chinese Cuisine</div>
+    <div class="cname">Veg Hakka Noodles</div>
+    <div class="cdesc">Stir-fried noodles tossed with vegetables and Indo-Chinese sauces.</div>
+    <div class="cfoot"><span class="cprice">₹220</span><span class="cserves">serves 2</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="main veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#d84315,#6d1b00)">🥡<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Chinese Cuisine</div>
+    <div class="cname">Manchurian Dry</div>
+    <div class="cdesc">Crispy vegetable balls tossed in spicy garlic and soy sauce.</div>
+    <div class="cfoot"><span class="cprice">₹240</span><span class="cserves">serves 3</span></div>
+  </div>
+</div>
+
+<!-- ================= SOUPS ================= -->
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffab91,#d84315)">🥣<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Soups</div>
+    <div class="cname">Tomato Soup</div>
+    <div class="cdesc">Creamy tomato soup seasoned with herbs and served with croutons.</div>
+    <div class="cfoot"><span class="cprice">₹90</span><span class="cserves">per bowl</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffe082,#ffca28)">🌽<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Soups</div>
+    <div class="cname">Sweet Corn Soup</div>
+    <div class="cdesc">Classic Indo-Chinese soup with sweet corn and vegetables.</div>
+    <div class="cfoot"><span class="cprice">₹110</span><span class="cserves">per bowl</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="starter veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#8d6e63,#4e342e)">🍲<span class="vbadge">Veg</span><span class="sbadge">Spicy</span></div>
+  <div class="cbody">
+    <div class="ccat">Soups</div>
+    <div class="cname">Manchow Soup</div>
+    <div class="cdesc">Hot and spicy vegetable soup topped with crispy fried noodles.</div>
+    <div class="cfoot"><span class="cprice">₹120</span><span class="cserves">per bowl</span></div>
+  </div>
+</div>
+
+<!-- ================= SWEETS ================= -->
+
+<div class="mc vis" data-c="dessert veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f4c27a,#c87f0a)">🍮<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Sweets</div>
+    <div class="cname">Gulab Jamun</div>
+    <div class="cdesc">Soft khoya dumplings soaked in saffron-cardamom sugar syrup.</div>
+    <div class="cfoot"><span class="cprice">₹120</span><span class="cserves">2 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="dessert veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffe0b2,#ef6c00)">🥛<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Sweets</div>
+    <div class="cname">Rasmalai</div>
+    <div class="cdesc">Soft paneer discs soaked in chilled saffron milk and dry fruits.</div>
+    <div class="cfoot"><span class="cprice">₹140</span><span class="cserves">2 pcs</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="dessert veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#f8c471,#d68910)">🍨<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Sweets</div>
+    <div class="cname">Basundi</div>
+    <div class="cdesc">Rich thickened milk dessert flavored with saffron, cardamom, and nuts.</div>
+    <div class="cfoot"><span class="cprice">₹160</span><span class="cserves">per bowl</span></div>
+  </div>
+</div>
+
+<div class="mc vis" data-c="dessert veg">
+  <div class="cthumb" style="background:linear-gradient(135deg,#ffb74d,#bf360c)">🥕<span class="vbadge">Veg</span></div>
+  <div class="cbody">
+    <div class="ccat">Sweets</div>
+    <div class="cname">Gajar Halwa</div>
+    <div class="cdesc">Slow-cooked carrot pudding made with milk, ghee, sugar, and dry fruits.</div>
+    <div class="cfoot"><span class="cprice">₹150</span><span class="cserves">per bowl</span></div>
+  </div>
+</div>
+</section>
+
+<!-- PACKAGES -->
+<section class="pkgs" id="packages">
+  <div class="s-lbl reveal">Event Packages</div>
+  <h2 class="s-ttl reveal">Choose Your <em>Package</em></h2>
+  <div class="s-rule reveal"></div>
+  <div class="pgrid">
+    <div class="pkg reveal">
+      <div class="pname">Starter</div>
+      <div class="pprice">From <span>₹350</span>/pax</div>
+      <ul class="plist"><li>1 Rice option</li><li>2 Main dishes</li><li>1 Dessert</li><li>Bottled water included</li><li>Basic setup & service</li><li>Min. 30 guests</li></ul>
+      <a href="#" class="pbtn" onclick="openModal(event)">Inquire Now</a>
+    </div>
+    <div class="pkg feat reveal">
+      <div class="ptag">Most Popular</div>
+      <div class="pname">Classic</div>
+      <div class="pprice">From <span>₹550</span>/pax</div>
+      <ul class="plist"><li>2 Rice or noodle options</li><li>4 Main dishes (incl. veg)</li><li>1 Starter / Salad</li><li>2 Desserts</li><li>2 Drink options</li><li>Full setup & uniformed staff</li><li>Min. 50 guests</li></ul>
+      <a href="#" class="pbtn" onclick="openModal(event)">Book This Package</a>
+    </div>
+    <div class="pkg reveal">
+      <div class="pname">Premium</div>
+      <div class="pprice">From <span>₹900</span>/pax</div>
+      <ul class="plist"><li>3 Rice & noodle options</li><li>6 Main dishes (incl. veg)</li><li>3 Starters & salads</li><li>Dessert station (3 items)</li><li>Free-flowing drinks</li><li>Live carving station</li><li>Dedicated event coordinator</li><li>Min. 80 guests</li></ul>
+      <a href="#" class="pbtn" onclick="openModal(event)">Inquire Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testis">
+  <div class="s-lbl reveal">Happy Clients</div>
+  <h2 class="s-ttl reveal">What They <em>Say</em></h2>
+  <div class="s-rule reveal"></div>
+  <div class="tgrid">
+    <div class="tcard reveal"><div class="stars">★★★★★</div><div class="ttext">"PR Catering made our wedding reception absolutely perfect. Every dish was incredible and their staff so professional. Guests are still talking about the food!"</div><div class="tauthor">— Maria Santos, Wedding Reception · 2024</div></div>
+    <div class="tcard reveal"><div class="stars">★★★★★</div><div class="ttext">"We requested vegan options for half our guests. They went above and beyond — the Tofu Sisig and Veg Kare-Kare were the highlight of our company event!"</div><div class="tauthor">— James Reyes, Corporate Lunch · 2025</div></div>
+    <div class="tcard reveal"><div class="stars">★★★★★</div><div class="ttext">"Booked them for my daughter's debut and it was flawless. The food was hot, plentiful, and beautifully presented. Zero stress for us — they handled everything."</div><div class="tauthor">— Carla Mendoza, Debut Party · 2025</div></div>
+  </div>
+</section>
+
+<!-- QR CODE -->
+<section class="qrsec" id="qr">
+  <div class="s-lbl reveal">Scan & Explore</div>
+  <h2 class="s-ttl reveal">Our <em>Digital Menu</em></h2>
+  <div class="s-rule reveal"></div>
+  <p class="qrdesc reveal">Scan the QR code below — it directs straight to our Menu section on this page. Share it with guests before your event so they can browse ahead!</p>
+  <div class="qrwrap reveal">
+    <div class="qrplate">
+      <svg class="qrimg" viewBox="0 0 41 41" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+        <rect width="41" height="41" fill="white"/>
+        <!-- TL finder -->
+        <rect x="1" y="1" width="9" height="9" fill="#0f0a04"/><rect x="2" y="2" width="7" height="7" fill="white"/><rect x="3" y="3" width="5" height="5" fill="#0f0a04"/>
+        <!-- TR finder -->
+        <rect x="31" y="1" width="9" height="9" fill="#0f0a04"/><rect x="32" y="2" width="7" height="7" fill="white"/><rect x="33" y="3" width="5" height="5" fill="#0f0a04"/>
+        <!-- BL finder -->
+        <rect x="1" y="31" width="9" height="9" fill="#0f0a04"/><rect x="2" y="32" width="7" height="7" fill="white"/><rect x="3" y="33" width="5" height="5" fill="#0f0a04"/>
+        <!-- Timing H -->
+        <rect x="10" y="6" width="1" height="1" fill="#0f0a04"/><rect x="12" y="6" width="1" height="1" fill="#0f0a04"/><rect x="14" y="6" width="1" height="1" fill="#0f0a04"/><rect x="16" y="6" width="1" height="1" fill="#0f0a04"/><rect x="18" y="6" width="1" height="1" fill="#0f0a04"/><rect x="20" y="6" width="1" height="1" fill="#0f0a04"/><rect x="22" y="6" width="1" height="1" fill="#0f0a04"/><rect x="24" y="6" width="1" height="1" fill="#0f0a04"/><rect x="26" y="6" width="1" height="1" fill="#0f0a04"/><rect x="28" y="6" width="1" height="1" fill="#0f0a04"/>
+        <!-- Timing V -->
+        <rect x="6" y="10" width="1" height="1" fill="#0f0a04"/><rect x="6" y="12" width="1" height="1" fill="#0f0a04"/><rect x="6" y="14" width="1" height="1" fill="#0f0a04"/><rect x="6" y="16" width="1" height="1" fill="#0f0a04"/><rect x="6" y="18" width="1" height="1" fill="#0f0a04"/><rect x="6" y="20" width="1" height="1" fill="#0f0a04"/><rect x="6" y="22" width="1" height="1" fill="#0f0a04"/><rect x="6" y="24" width="1" height="1" fill="#0f0a04"/><rect x="6" y="26" width="1" height="1" fill="#0f0a04"/><rect x="6" y="28" width="1" height="1" fill="#0f0a04"/>
+        <!-- Data modules rows -->
+        <rect x="10" y="10" width="2" height="2" fill="#0f0a04"/><rect x="13" y="10" width="1" height="1" fill="#0f0a04"/><rect x="15" y="10" width="2" height="1" fill="#0f0a04"/><rect x="18" y="10" width="1" height="2" fill="#0f0a04"/><rect x="20" y="10" width="2" height="1" fill="#0f0a04"/><rect x="23" y="10" width="1" height="1" fill="#0f0a04"/><rect x="25" y="10" width="2" height="2" fill="#0f0a04"/><rect x="28" y="10" width="1" height="1" fill="#0f0a04"/><rect x="33" y="10" width="2" height="1" fill="#0f0a04"/><rect x="36" y="10" width="2" height="2" fill="#0f0a04"/>
+        <rect x="10" y="13" width="1" height="2" fill="#0f0a04"/><rect x="12" y="14" width="3" height="1" fill="#0f0a04"/><rect x="16" y="13" width="1" height="3" fill="#0f0a04"/><rect x="18" y="13" width="2" height="1" fill="#0f0a04"/><rect x="21" y="14" width="1" height="1" fill="#0f0a04"/><rect x="23" y="13" width="2" height="2" fill="#0f0a04"/><rect x="26" y="13" width="1" height="1" fill="#0f0a04"/><rect x="28" y="13" width="1" height="2" fill="#0f0a04"/><rect x="30" y="14" width="3" height="1" fill="#0f0a04"/><rect x="34" y="13" width="1" height="2" fill="#0f0a04"/>
+        <rect x="8" y="16" width="2" height="2" fill="#0f0a04"/><rect x="11" y="17" width="1" height="1" fill="#0f0a04"/><rect x="13" y="16" width="2" height="1" fill="#0f0a04"/><rect x="17" y="16" width="1" height="2" fill="#0f0a04"/><rect x="19" y="17" width="3" height="1" fill="#0f0a04"/><rect x="23" y="16" width="1" height="1" fill="#0f0a04"/><rect x="25" y="16" width="1" height="2" fill="#0f0a04"/><rect x="27" y="17" width="2" height="1" fill="#0f0a04"/><rect x="30" y="16" width="2" height="2" fill="#0f0a04"/><rect x="33" y="17" width="1" height="1" fill="#0f0a04"/>
+        <rect x="10" y="19" width="1" height="1" fill="#0f0a04"/><rect x="12" y="19" width="2" height="2" fill="#0f0a04"/><rect x="15" y="20" width="1" height="1" fill="#0f0a04"/><rect x="17" y="19" width="1" height="2" fill="#0f0a04"/><rect x="19" y="19" width="2" height="1" fill="#0f0a04"/><rect x="22" y="20" width="1" height="1" fill="#0f0a04"/><rect x="24" y="19" width="2" height="2" fill="#0f0a04"/><rect x="27" y="19" width="1" height="1" fill="#0f0a04"/><rect x="29" y="20" width="2" height="1" fill="#0f0a04"/><rect x="32" y="19" width="1" height="2" fill="#0f0a04"/>
+        <rect x="8" y="22" width="3" height="1" fill="#0f0a04"/><rect x="12" y="22" width="1" height="1" fill="#0f0a04"/><rect x="14" y="21" width="2" height="2" fill="#0f0a04"/><rect x="17" y="22" width="1" height="1" fill="#0f0a04"/><rect x="19" y="21" width="1" height="2" fill="#0f0a04"/><rect x="21" y="22" width="2" height="1" fill="#0f0a04"/><rect x="24" y="22" width="1" height="1" fill="#0f0a04"/><rect x="26" y="21" width="1" height="2" fill="#0f0a04"/><rect x="28" y="22" width="2" height="1" fill="#0f0a04"/><rect x="31" y="21" width="2" height="2" fill="#0f0a04"/><rect x="36" y="22" width="2" height="2" fill="#0f0a04"/>
+        <rect x="10" y="24" width="1" height="2" fill="#0f0a04"/><rect x="12" y="25" width="2" height="1" fill="#0f0a04"/><rect x="15" y="24" width="1" height="1" fill="#0f0a04"/><rect x="17" y="24" width="2" height="2" fill="#0f0a04"/><rect x="20" y="25" width="1" height="1" fill="#0f0a04"/><rect x="22" y="24" width="1" height="2" fill="#0f0a04"/><rect x="24" y="25" width="2" height="1" fill="#0f0a04"/><rect x="27" y="24" width="2" height="1" fill="#0f0a04"/><rect x="30" y="25" width="1" height="1" fill="#0f0a04"/><rect x="32" y="24" width="2" height="2" fill="#0f0a04"/>
+        <rect x="8" y="27" width="2" height="2" fill="#0f0a04"/><rect x="11" y="27" width="1" height="1" fill="#0f0a04"/><rect x="13" y="28" width="2" height="1" fill="#0f0a04"/><rect x="16" y="27" width="1" height="2" fill="#0f0a04"/><rect x="18" y="27" width="2" height="1" fill="#0f0a04"/><rect x="21" y="28" width="1" height="1" fill="#0f0a04"/><rect x="23" y="27" width="2" height="2" fill="#0f0a04"/><rect x="26" y="28" width="1" height="1" fill="#0f0a04"/><rect x="28" y="27" width="2" height="2" fill="#0f0a04"/><rect x="33" y="27" width="2" height="1" fill="#0f0a04"/>
+        <!-- Alignment pattern -->
+        <rect x="28" y="28" width="5" height="5" fill="#0f0a04"/><rect x="29" y="29" width="3" height="3" fill="white"/><rect x="30" y="30" width="1" height="1" fill="#0f0a04"/>
+        <!-- Center logo -->
+        <rect x="17" y="17" width="7" height="7" rx="1" fill="white"/>
+        <rect x="18" y="18" width="5" height="5" rx="0.5" fill="#d4a843"/>
+        <text x="20.5" y="22.8" font-family="Georgia,serif" font-size="3.8" font-weight="bold" fill="white" text-anchor="middle">PR</text>
+      </svg>
+    </div>
+    <div class="qrcap">Scan → jumps to menu section</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="consec" id="contact">
+  <div class="s-lbl reveal">Get In Touch</div>
+  <h2 class="s-ttl reveal">Let's Plan Your <em>Event</em></h2>
+  <div class="s-rule reveal"></div>
+  <div class="cogrid">
+    <div class="cocard reveal"><div class="coicon">📞</div><div class="cotype">Mobile</div><div class="coval"><a href="tel:+91 7698490040" onclick="openModal(event)">+91 7698490040</a></div></div>
+    <div class="cocard reveal"><div class="coicon">☎️</div><div class="cotype">Phone</div><div class="coval"><a href="tel:+91 9033570410">(02) 8123-4567</a></div></div>
+    <div class="cocard reveal"><div class="coicon">📧</div><div class="cotype">Email</div><div class="coval"><a href="mailto:adityajaiswal2704@gmail.com">adityajaiswal2704@gmail.com</a></div></div>
+    <div class="cocard reveal"><div class="coicon">📍</div><div class="cotype">Location</div><div class="coval">Vapi, Gujarat</div></div>
+    <div class="cocard reveal"><div class="coicon">🕐</div><div class="cotype">Hours</div><div class="coval">Mon–Sat · 8am–7pm</div></div>
+    <!-- <div class="cocard reveal"><div class="coicon">💬</div><div class="cotype">Messenger</div><div class="coval"><a href="#">@PRCatering.PH</a></div></div> -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">PR Catering</div>
+  <div class="flinks">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#menu">Menu</a>
+    <a href="#packages">Packages</a><a href="#" onclick="openModal(event)">Call Us</a><a href="#contact">Contact</a>
+  </div>
+  <div class="fcopy">© 2025 PR Catering · Premium Catering & Events · Metro Manila, Philippines · All Rights Reserved</div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animR(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animR)})();
+
+// Menu filter
+function doFilter(f,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let i=0;
+  document.querySelectorAll('.mc').forEach(c=>{
+    const cats=c.dataset.c.split(' ');
+    const show=f==='all'||cats.includes(f);
+    c.classList.toggle('vis',show);
+    if(show){c.style.animationDelay=(i%8*.05)+'s';i++}
+  });
+}
+
+// Modal
+function openModal(e){if(e)e.preventDefault();document.getElementById('callModal').classList.add('open')}
+function closeModal(){document.getElementById('callModal').classList.remove('open')}
+document.getElementById('callModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// QR code: make it link to #menu on click (simulated scan behaviour)
+document.querySelector('.qrplate').style.cursor='pointer';
+document.querySelector('.qrplate').addEventListener('click',()=>{
+  document.querySelector('#menu').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
